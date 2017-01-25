@@ -1,5 +1,5 @@
 package compiler.entities;
-import Tree.*;
+import compiler.tree.*;
 
 public class Grammar {
 	
@@ -28,6 +28,7 @@ public class Grammar {
 		 this.setTreeInForest(0, this.GenRule1());
 		 
 		 this.setTreeInForest(2, this.GenRule3());
+		 this.setTreeInForest(3, this.Genrule4());
 	}
 	
 	
@@ -53,6 +54,15 @@ public class Grammar {
 		Node  plus = new Node (1,Type.Terminal,"+");
 		
 		return this.GenConc(T, GenStar(GenConc(plus, T)));
+	}
+	
+	
+	
+	private Node Genrule4(){
+		Node  F = new Node (1,Type.NonTerminal,"F");
+		Node  dot = new Node (1,Type.Terminal,".");
+		
+		return this.GenConc(F, GenStar(GenConc(dot, F)));
 	}
 	
 	
