@@ -14,7 +14,7 @@ public class TestClass {
 		g.setTreeInForest(0, n);
 		g.printTree(n);
 		
-		//System.out.println("yoyoyo3");
+		
 	}
 
 }

@@ -42,21 +42,21 @@ public class Grammar {
 
 
 	public void GenForet(){
-		 this.setTreeInForest(0, this.GenRule1());
-		 this.setTreeInForest(2, this.GenRule3());
-		 this.setTreeInForest(3, this.GenRule4());
+		 setTreeInForest(0, this.GenRule1());
+		 setTreeInForest(2, this.GenRule3());
+		 setTreeInForest(3, this.GenRule4());
 	}
 	
 	
 	
 	private Node GenRule1(){
-		Node  N = new Node (1,Type.NonTerminal,"N");
-		Node  E = new Node (1,Type.NonTerminal,"E");
-		Node  fl = new Node (1,Type.Terminal,"->");
-		Node  vir = new Node (1,Type.Terminal,",");
-		Node  pvir = new Node (1,Type.Terminal,";");
+		Node  N = GenAtom("N",0,Type.NonTerminal);
+		Node  E = GenAtom("E",0,Type.NonTerminal);
+		Node  fl = GenAtom("->",0,Type.Terminal);
+		Node  vir = GenAtom(",",1,Type.Terminal);
+		Node  pvir = GenAtom(";",0,Type.Terminal);
 		
-		return this.GenConc(GenStar(GenConc(GenConc(GenConc(N, fl), E), vir)), pvir);
+		return GenConc(GenStar(GenConc(GenConc(GenConc(N, fl), E), vir)), pvir);
 	}
 	
 	
@@ -68,9 +68,10 @@ public class Grammar {
 	}
 	
 	
+	//pif action
 	private Node GenRule3(){
-		Node  T = new Node (1,Type.NonTerminal,"T");
-		Node  plus = new Node (1,Type.Terminal,"+");
+		Node  T = GenAtom("T",0,Type.NonTerminal);
+		Node  plus = GenAtom("+",0,Type.NonTerminal);
 		
 		return this.GenConc(T, GenStar(GenConc(plus, T)));
 	}
@@ -121,17 +122,15 @@ public class Grammar {
 	
 	
 	//p peut etre un node ou NULL 
-	public Node GenUn (Node p){
-		Node un = new Node(1,Type.Terminal, "U");
-		un.setBranche(0, p);
+	public Node GenUn (String nom){
+		Node un = new Node(0,Type.Terminal, nom);
 		return un;
 	}
 	
 	
 	
-	public Node GenAtom ( Node p){
-		Node atom = new Node(1,Type.Atom,"A");
-		atom.setBranche(0, p);
+	public Node GenAtom ( String nom, int action, Type type){
+		Node atom = new Node(0,type, nom);
 		return atom;
 	}
 
