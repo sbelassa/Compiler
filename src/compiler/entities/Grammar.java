@@ -94,7 +94,7 @@ public class Grammar {
 	
 //////////////////////////////////////////////////////////////////////////////////////////////	
 	public Node GenConc (Node p1, Node p2){
-		Node conc = new Node(3, Type.Conc, ".");
+		Node conc = new Node(3, ".",Operations.Conc);
 		conc.setBranche(0, p1);
 		conc.setBranche(1, p2);
 		return conc;
@@ -103,7 +103,7 @@ public class Grammar {
 	
 	
 	public Node GenUnion (Node p1, Node p2){
-		Node union = new Node(3, Type.Union, "+");
+		Node union = new Node(3, "+", Operations.Union);
 		union.setBranche(0, p1);
 		union.setBranche(1, p2);
 		return union;
@@ -111,7 +111,7 @@ public class Grammar {
 	
 	
 	public Node GenStar (Node p){
-		Node star = new Node(3, Type.Star, "*");
+		Node star = new Node(3, "*",Operations.Star);
 		Node Laccol = new Node (1,Type.Terminal,"[");
 		Node Raccol = new Node (1,Type.Terminal,"]");
 		star.setBranche(0, Laccol);
@@ -158,7 +158,7 @@ public class Grammar {
 	{		
 		if(!n.equals(null)) {
 			
-			if(n.getType() == Type.Conc){
+			if(n.getType() == Operations.Conc){
 				System.out.println("Concat");
 			}
 			if(n.getType() == Type.Union){
