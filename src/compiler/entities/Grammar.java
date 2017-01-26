@@ -14,21 +14,37 @@ public class Grammar {
 	}
 	
 	
+	public Grammar(int nbTree, Node[] forest) {
+		super();
+		this.forest = forest;
+		this.nbTree = nbTree;
+	}
+
+	
+	public Grammar() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
 	public void setTreeInForest(int x, Node n){
 		if ( x>0 && x<nbTree-1){
 			this.forest[x]=n;
 		}
 		else{
-			//on fait quoi ?
+
+
 		}
 	}
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////	
 	
+
+
 	public void GenForet(){
 		 this.setTreeInForest(0, this.GenRule1());
-		 
 		 this.setTreeInForest(2, this.GenRule3());
-		 this.setTreeInForest(3, this.Genrule4());
+		 this.setTreeInForest(3, this.GenRule4());
 	}
 	
 	
@@ -46,6 +62,9 @@ public class Grammar {
 	
 	private Node GenRule2(){
 		
+		
+		return null;
+		
 	}
 	
 	
@@ -58,7 +77,7 @@ public class Grammar {
 	
 	
 	
-	private Node Genrule4(){
+	private Node GenRule4(){
 		Node  F = new Node (1,Type.NonTerminal,"F");
 		Node  dot = new Node (1,Type.Terminal,".");
 		
@@ -115,8 +134,40 @@ public class Grammar {
 		atom.setBranche(0, p);
 		return atom;
 	}
+
+
+	public Node[] getForest() {
+		return forest;
+	}
+
+
+	public void setForest(Node[] forest) {
+		this.forest = forest;
+	}
+
+
+	public int getNbTree() {
+		return nbTree;
+	}
+
+
+	public void setNbTree(int nbTree) {
+		this.nbTree = nbTree;
+	}
 	
-	
+	public void printTree(Node n)
+	{		
+		if(!n.equals(null)) {
+			
+			if(n.getType() == Type.Conc){
+				System.out.println("Concat");
+			}
+			if(n.getType() == Type.Union){
+				System.out.println("Union");
+			}
+			
+		}
+	}
 	
 
 }

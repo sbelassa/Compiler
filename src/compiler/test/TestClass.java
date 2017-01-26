@@ -1,10 +1,20 @@
 package compiler.test;
 
+import compiler.entities.Grammar;
+import compiler.tree.Node;
+import compiler.tree.Type;
+
 public class TestClass {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("yoyoyo3");
+
+		Node n= new Node();
+		n.setType(Type.Conc);
+		Grammar g=new Grammar(2);
+		g.setTreeInForest(0, n);
+		g.printTree(n);
+		
+		//System.out.println("yoyoyo3");
 	}
 
 }

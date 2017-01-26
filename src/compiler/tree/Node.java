@@ -28,6 +28,56 @@ public class Node {
 	public String getNom(){
 		return this.nom;
 	}
+
+
+	public Node[] getBranche() {
+		return Branche;
+	}
+
+
+	public void setBranche(Node[] branche) {
+		Branche = branche;
+	}
+
+
+	public int getNbBranche() {
+		return nbBranche;
+	}
+
+
+	public void setNbBranche(int nbBranche) {
+		this.nbBranche = nbBranche;
+	}
+
+
+	public Type getType() {
+		return type;
+	}
+
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+
+	public Node() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Node(Node[] branche, int nbBranche, Type type, String nom) {
+		super();
+		Branche = branche;
+		this.nbBranche = nbBranche;
+		this.type = type;
+		this.nom = nom;
+	}
 	
 
 }
