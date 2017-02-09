@@ -119,6 +119,28 @@ public class Node {
 
 
 
+	
+	
+	public String getValue() {
+		return Value;
+	}
+
+
+	public void setValue(String value) {
+		Value = value;
+	}
+
+
+	public Operations getOps() {
+		return ops;
+	}
+
+
+	public void setOps(Operations ops) {
+		this.ops = ops;
+	}
+
+
 
 	
 

@@ -157,14 +157,14 @@ public class Grammar {
 	public void printTree(Node n)
 	{		
 		if(!n.equals(null)) {
-			
+			/*
 			if(n.getType() == Operations.Conc){
 				System.out.println("Concat");
 			}
-			if(n.getType() == Type.Union){
+			if(n.getType() == Operations.Union){
 				System.out.println("Union");
 			}
-			
+			*/
 		}
 	}
 	

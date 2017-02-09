@@ -9,7 +9,7 @@ public class TestClass {
 	public static void main(String[] args) {
 
 		Node n= new Node();
-		n.setType(Type.Conc);
+		//n.setType(Type.Conc);
 		Grammar g=new Grammar(2);
 		g.setTreeInForest(0, n);
 		g.printTree(n);
