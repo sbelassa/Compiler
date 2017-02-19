@@ -29,7 +29,6 @@ public abstract class Node {
 	}
 	
 	
-	@Override
 	public String toString() {
 		return "Node [left=" + left + ", right=" + right + "]";
 	}

@@ -53,7 +53,7 @@ public class Atom extends Node{
 
 	
 	
-	@Override
+	
 	public String toString() {
 		return "Atom [code=" + code + ", aType=" + aType + ", action=" + action + "]";
 	}

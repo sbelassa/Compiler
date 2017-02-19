@@ -49,7 +49,7 @@ public class Grammar {
 	
 	
 	
-	private Node GenRule1(){
+	public Node GenRule1(){
 		Node  N = GenAtom("N",0,Type.NonTerminal);
 		Node  E = GenAtom("E",0,Type.NonTerminal);
 		Node  fl = GenAtom("->",0,Type.Terminal);
@@ -154,17 +154,37 @@ public class Grammar {
 		this.nbTree = nbTree;
 	}
 	
+	public void charPrinter(char c, int cnt){
+	    int i;
+	    for(i = 0; i < cnt; i++){
+	        System.out.println(c);
+	    }
+	}
+	
 	public void printTree(Node n)
-	{		
+	{	
+		int cnt=1;
+		System.out.println("Printing Tree:");
+		charPrinter('-', cnt*2);
+		
 		if(!n.equals(null)) {
-			/*
-			if(n.getType() == Operations.Conc){
+			
+			if(n.getOps() == Operations.Conc){
 				System.out.println("Concat");
 			}
-			if(n.getType() == Operations.Union){
+			if(n.getOps() == Operations.Union){
 				System.out.println("Union");
 			}
-			*/
+			if(n.getOps() == Operations.Star){
+				System.out.println("Star");
+			}
+			if(n.getOps() == Operations.Un){
+				System.out.println("Un");
+			}
+			if(n.getOps() == Operations.Atom){
+				System.out.println("Atom");
+			}
+			
 		}
 	}
 	
