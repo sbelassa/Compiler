@@ -156,9 +156,9 @@ public class Grammar {
 		}
 		
 		if(node instanceof Star){
-			//return true;
-			//while(Analyse(node.getLeft()))
-			return Analyse(node.getLeft());
+			//FIXME check the algo
+			return true;
+			while(Analyse(node));
 		}
 		
 		if(node instanceof Un){
@@ -169,16 +169,27 @@ public class Grammar {
 			
 			if(((Atom) node).getaType() == AtomType.Terminal){
 				if(((Atom) node).getCode() == code){ //code est rempli par le scan !!!!!?????
-					if(((Atom) node).getAction() != 0)
+					return true;
+					if(((Atom) node).getAction() != 0){
 						G0Action(((Atom) node).getAction());
 						Scan();
-						return true;
+						}
+					else
+						return false;
 					}
 				}
 			}
 			
 			else if(((Atom) node).getaType() == AtomType.NonTerminal){
+				if(Analyse(((Atom) node).getCode())){
+					if(((Atom) node).getAction() != 0){
+						G0Action(((Atom) node).getAction());
+						return true;
+					}
 				
+				}
+				else 
+					return false;
 			}
 		}
 		
@@ -186,7 +197,7 @@ public class Grammar {
 
 		
 		
-	}
+	
 	
 	private void Scan() {
 		// TODO Auto-generated method stub
