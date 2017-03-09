@@ -107,7 +107,6 @@ public class Grammar {
 		
 		if(node.getLeft()!=null){
 			PrintNode(node.getLeft(),cnt+1);
-			
 		}
 		//System.out.println("\n");
 		if(node.getRight()!=null){
@@ -131,6 +130,78 @@ public class Grammar {
 	}
 	
 	
+	/**
+	 * 
+	 * @param n
+	 */
+	public Boolean Analyse(Node node){
+		
+		if(node instanceof Conc){
+			if(Analyse(node.getLeft())){
+				return Analyse(node.getRight());
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		if(node instanceof Union){
+			if(Analyse(node.getLeft())){
+				return true;
+			}
+			else{
+				return Analyse(node.getRight());
+			}
+		}
+		
+		if(node instanceof Star){
+			//return true;
+			//while(Analyse(node.getLeft()))
+			return Analyse(node.getLeft());
+		}
+		
+		if(node instanceof Un){
+			return Analyse(node.getLeft());
+		}
+		
+		if(node instanceof Atom){
+			
+			if(((Atom) node).getaType() == AtomType.Terminal){
+				if(((Atom) node).getCode() == code){ //code est rempli par le scan !!!!!?????
+					if(((Atom) node).getAction() != 0)
+						G0Action(((Atom) node).getAction());
+						Scan();
+						return true;
+					}
+				}
+			}
+			
+			else if(((Atom) node).getaType() == AtomType.NonTerminal){
+				
+			}
+		}
+		
+		
+
+		
+		
+	}
+	
+	private void Scan() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	private void G0Action(int action) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	/**
 	 * The main method.
 	 *
@@ -174,37 +245,37 @@ public class Grammar {
 		
 		
 		///fifth rule
-		Node rule5= new Union(
-								new Union(
-										new Union(
-												new Union(
-														new Conc(
-																new Atom("(/", AtomType.NonTerminal, 0),
-																new Conc(
-																		new Atom("E", AtomType.NonTerminal, 0),
-																		new Atom("/)", AtomType.Terminal, 0)
-																		)
-																),
-														new Conc(
-															new Atom("[", AtomType.Terminal, 0),
+		Node rule5 = new Union(
+							new Union(
+									new Union(
+											new Union(
+													new Atom("ELTER", AtomType.Terminal, 0),
+													new Atom("IDNTER", AtomType.Terminal, 0)
+															),
+													new Conc(
+															new Atom("(", AtomType.Terminal, 0),
 															new Conc(
 																	new Atom("E", AtomType.NonTerminal, 0),
-																	new Atom("]", AtomType.Terminal, 0)
+																	new Atom(")", AtomType.Terminal, 0)
 																	)
-																)
-														),
-												new Conc(
-														new Atom("(", AtomType.Terminal, 0),
-														new Conc(
-																new Atom("E", AtomType.NonTerminal, 0),
-																new Atom(")", AtomType.Terminal, 0)
-																)
-														)
-												),
-										new Atom("ELTER", AtomType.Terminal, 0)
-										),
-								new Atom("IDNTER", AtomType.Terminal, 0)
-							);
+															)
+													),
+									new Conc(
+											new Atom("[", AtomType.Terminal, 0),
+											new Conc(
+													new Atom("E", AtomType.NonTerminal, 0),
+													new Atom("]", AtomType.Terminal, 0)
+													)
+												)
+											),
+							new Conc(
+									new Atom("(/", AtomType.NonTerminal, 0),
+									new Conc(
+											new Atom("E", AtomType.NonTerminal, 0),
+											new Atom("/)", AtomType.Terminal, 0)
+											)
+									)
+						);
 		
 		
 		
