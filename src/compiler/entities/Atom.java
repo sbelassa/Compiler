@@ -10,7 +10,7 @@ package compiler.entities;
 public class Atom extends Node{
 	
 	/** The code. */
-	private String code;
+	private int code;
 	
 	/** The a type. */
 	private AtomType aType;
@@ -23,7 +23,7 @@ public class Atom extends Node{
 	
 	
 	
-	public Atom(Node left, Node right, String code, AtomType aType, int action, String value) {
+	public Atom(Node left, Node right, int code, AtomType aType, int action, String value) {
 		super(left, right);
 		this.code = code;
 		this.aType = aType;
@@ -31,7 +31,7 @@ public class Atom extends Node{
 		this.value = value;
 	}
 	
-	public Atom(String code, AtomType aType, int action, String value) {
+	public Atom(int code, AtomType aType, int action, String value) {
 		this.code = code;
 		this.aType = aType;
 		this.action = action;
@@ -71,7 +71,7 @@ public class Atom extends Node{
 	 * @param aType the a type
 	 * @param action the action
 	 */
-	public Atom(String code, AtomType aType, int action) {
+	public Atom(int code, AtomType aType, int action) {
 		super(null, null);
 		this.code = code;
 		this.aType = aType;
@@ -85,7 +85,7 @@ public class Atom extends Node{
 	 *
 	 * @return the code
 	 */
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
@@ -94,7 +94,7 @@ public class Atom extends Node{
 	 *
 	 * @param code the new code
 	 */
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 

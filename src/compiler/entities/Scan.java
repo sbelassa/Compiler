@@ -13,10 +13,14 @@ public class Scan {
 	private ArrayList<String> dicoT;
 	private ArrayList<String> symboles;
 	private String rule;
+	private Atom scannedAtom;
+
 	/**
 	 * adding a structure for the scan output but then we have exactly 
 	 * what we wanted in Atom (code,action,AtomType,value) 
 	 **/
+
+
 
 	/**
 	 * the main scan function
@@ -49,12 +53,17 @@ public class Scan {
 	public Atom scanRule(String rule){
 		if (!this.rule.isEmpty()) {
 			char first = rule.charAt(0);
-				if(first == ' ' || first== '\n'){
+				/*if(first == ' ' || first== '\n'){
 					first = rule.charAt(1);
-				}
+				}*/
 				
-				if(first == )
-			
+			if(Character.toString(first) == "->"){
+				if(!symboles.contains(first)){
+					symboles.add("->");
+				}
+				return new Atom(2, AtomType.NonTerminal, 0,Character.toString(first));
+
+			}
 			
 			
 			
@@ -112,6 +121,28 @@ public class Scan {
 	 */
 	public void setRule(String rule) {
 		this.rule = rule;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Atom getScannedAtom() {
+		return scannedAtom;
+	}
+
+	public Scan(ArrayList<String> dicoNT, ArrayList<String> dicoT, ArrayList<String> symboles, String rule,
+			Atom scannedAtom) {
+		super();
+		this.dicoNT = dicoNT;
+		this.dicoT = dicoT;
+		this.symboles = symboles;
+		this.rule = rule;
+		this.scannedAtom = scannedAtom;
+	}
+
+	public void setScannedAtom(Atom scannedAtom) {
+		this.scannedAtom = scannedAtom;
 	}
 	
 }

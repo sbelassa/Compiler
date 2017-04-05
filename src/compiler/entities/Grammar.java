@@ -204,41 +204,43 @@ public class Grammar {
 	 */
 	private Grammar fillInG0(Grammar G0){
 
+		/**
+		 * code is generated here from 1 to 17 to all vocabulary
+		 */
 				/// add first rule
 				Node rule1= new Conc(
 									new Star(
 										new Conc(
 												new Conc(
 														new Conc(
-																new Atom("0",AtomType.NonTerminal,0,"N"), 
-																new Atom("0", AtomType.Terminal,0,"->")), 
-														new Atom("0", AtomType.NonTerminal,0,"E")), 
-												new Atom("1", AtomType.Terminal,1,","))), 
-									new Atom("0", AtomType.Terminal,0,";"));
-				
+																new Atom(1,AtomType.NonTerminal,0,"N"), 
+																new Atom(2, AtomType.Terminal,0,"->")), 
+														new Atom(3, AtomType.NonTerminal,0,"E")), 
+												new Atom(4, AtomType.Terminal,1,","))), 
+									new Atom(5, AtomType.Terminal,0,";"));
 				
 				/**
 				 * new Atom(1, 0, AtomType.NONTERMINAL, "N")
 				 * code, action, atype,chaine
 				 */
 				///second rule
-				Node rule2= new Atom("2",AtomType.Terminal,2,"IDNTER");
+				Node rule2= new Atom(6,AtomType.Terminal,2,"IDNTER");
 				
 				///third rule
 				Node rule3= new Conc(
 									new Star(
 											new Conc(
-													new Atom("0",AtomType.Terminal,0,"+"),
-													new Atom("3",AtomType.NonTerminal,3,"T"))),
-									new Atom("0",AtomType.NonTerminal,0,"T"));				
+													new Atom(7,AtomType.Terminal,0,"+"),
+													new Atom(8,AtomType.NonTerminal,3,"T"))),
+									new Atom(8,AtomType.NonTerminal,0,"T"));				
 				
 				///fourth rule
 						Node rule4= new Conc(
 											new Star(
 													new Conc(
-															new Atom("0", AtomType.Terminal,0,"."),
-															new Atom("4", AtomType.NonTerminal,4,"F"))), 
-											new Atom("0", AtomType.NonTerminal,0,"F"));
+															new Atom(9, AtomType.Terminal,0,"."),
+															new Atom(10, AtomType.NonTerminal,4,"F"))), 
+											new Atom(10, AtomType.NonTerminal,0,"F"));
 				
 				
 				///fifth rule
@@ -246,30 +248,30 @@ public class Grammar {
 									new Union(
 											new Union(
 													new Union(
-															new Atom("5", AtomType.Terminal, 5,"ELTER"),
-															new Atom("5", AtomType.Terminal, 5,"IDNTER")
+															new Atom(11, AtomType.Terminal, 5,"ELTER"),
+															new Atom(6, AtomType.Terminal, 5,"IDNTER")
 																	),
 															new Conc(
-																	new Atom("0", AtomType.Terminal, 0,"("),
+																	new Atom(12, AtomType.Terminal, 0,"("),
 																	new Conc(
-																			new Atom("0", AtomType.NonTerminal, 0,"E"),
-																			new Atom("0", AtomType.Terminal, 0,")")
+																			new Atom(3, AtomType.NonTerminal, 0,"E"),
+																			new Atom(13, AtomType.Terminal, 0,")")
 																			)
 																	)
 															),
 											new Conc(
-													new Atom("0", AtomType.Terminal, 0,"["),
+													new Atom(14, AtomType.Terminal, 0,"["),
 													new Conc(
-															new Atom("0", AtomType.NonTerminal, 0,"E"),
-															new Atom("0", AtomType.Terminal, 0,"]")
+															new Atom(3, AtomType.NonTerminal, 0,"E"),
+															new Atom(15, AtomType.Terminal,6,"]")
 															)
 														)
 													),
 									new Conc(
-											new Atom("0", AtomType.NonTerminal, 0,"(/"),
+											new Atom(16, AtomType.NonTerminal, 0,"(/"),
 											new Conc(
-													new Atom("0", AtomType.NonTerminal, 0,"E"),
-													new Atom("0", AtomType.Terminal, 0,"/)")
+													new Atom(3, AtomType.NonTerminal, 0,"E"),
+													new Atom(17, AtomType.Terminal,7,"/)")
 													)
 											)
 								);
