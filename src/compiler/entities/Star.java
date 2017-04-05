@@ -1,7 +1,7 @@
 /*
  * 
  */
-package compiler.otherentities;
+package compiler.entities;
 
 // TODO: Auto-generated Javadoc
 /**

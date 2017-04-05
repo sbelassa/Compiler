@@ -3,7 +3,6 @@
  */
 package compiler.test;
 
-import compiler.entities.Grammar;
 import compiler.tree.Node;
 import compiler.tree.Operations;
 import compiler.tree.Type;

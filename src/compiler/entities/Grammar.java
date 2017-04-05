@@ -2,263 +2,78 @@
  * 
  */
 package compiler.entities;
-import compiler.tree.*;
+
+import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Grammar.
+ * The grammar containing rules.
  */
 public class Grammar {
 	
-	
-	/** The forest. */
-	private Node[] forest;
-	
-	/** The nb tree. */
-	private int nbTree;
+	/** The rules. */
+	private ArrayList<Node> rules;
 	
 	
+
 	/**
 	 * Instantiates a new grammar.
 	 *
-	 * @param nbTree the nb tree
+	 * @param rules the rules
 	 */
-	public Grammar (int nbTree){
-		this.forest = new Node[nbTree];
-		this.nbTree= nbTree;
-	}
-	
-	
-	/**
-	 * Instantiates a new grammar.
-	 *
-	 * @param nbTree the nb tree
-	 * @param forest the forest
-	 */
-	public Grammar(int nbTree, Node[] forest) {
-		super();
-		this.forest = forest;
-		this.nbTree = nbTree;
+	public Grammar(ArrayList<Node> rules) {
+		this.rules = rules;
 	}
 
-	
+
+
 	/**
 	 * Instantiates a new grammar.
 	 */
 	public Grammar() {
-		super();
-		// TODO Auto-generated constructor stub
+		rules= new ArrayList<Node>();
+
 	}
 
-	
-	/**
-	 * Sets the tree in forest.
-	 *
-	 * @param x the x
-	 * @param n the n
-	 */
-	public void setTreeInForest(int x, Node n){
-		if ( x>0 && x<nbTree-1){
-			this.forest[x]=n;
-		}
-		else{
-
-
-		}
-	}
-	
-///////////////////////////////////////////////////////////////////////////////////////////////	
-	
 
 
 	/**
- * Gen foret.
- */
-public void GenForet(){
-		 setTreeInForest(0, this.GenRule1());
-		 setTreeInForest(2, this.GenRule3());
-		 setTreeInForest(3, this.GenRule4());
-	}
-	
-	
-	
-	/**
-	 * Gen rule 1.
+	 * Gets the rules.
 	 *
-	 * @return the node
+	 * @return the rules
 	 */
-	public Node GenRule1(){
-		Node  N = GenAtom("N",0,Type.NonTerminal);
-		Node  E = GenAtom("E",0,Type.NonTerminal);
-		Node  fl = GenAtom("->",0,Type.Terminal);
-		Node  vir = GenAtom(",",1,Type.Terminal);
-		Node  pvir = GenAtom(";",0,Type.Terminal);
-		
-		return GenConc(GenStar(GenConc(GenConc(GenConc(N, fl), E), vir)), pvir);
+	public ArrayList<Node> getRules() {
+		return rules;
 	}
-	
-	
+
+
+
 	/**
-	 * Gen rule 2.
+	 * Sets the rules.
 	 *
-	 * @return the node
+	 * @param rules the new rules
 	 */
-	private Node GenRule2(){
-		
-		
-		return null;
-		
-	}
-	
-	
-	/**
-	 * Gen rule 3.
-	 *
-	 * @return the node
-	 */
-	//pif action
-	private Node GenRule3(){
-		Node  T = GenAtom("T",0,Type.NonTerminal);
-		Node  plus = GenAtom("+",0,Type.NonTerminal);
-		
-		return this.GenConc(T, GenStar(GenConc(plus, T)));
-	}
-	
-	
-	
-	/**
-	 * Gen rule 4.
-	 *
-	 * @return the node
-	 */
-	private Node GenRule4(){
-		Node  F = new Node (1,Type.NonTerminal,"F");
-		Node  dot = new Node (1,Type.Terminal,".");
-		
-		return this.GenConc(F, GenStar(GenConc(dot, F)));
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-/**
- * Gen conc.
- *
- * @param p1 the p 1
- * @param p2 the p 2
- * @return the node
- */
-//////////////////////////////////////////////////////////////////////////////////////////////	
-	public Node GenConc (Node p1, Node p2){
-		Node conc = new Node(3, ".",Operations.Conc);
-		conc.setBranche(0, p1);
-		conc.setBranche(1, p2);
-		return conc;
-	}
-	
-	
-	
-	/**
-	 * Gen union.
-	 *
-	 * @param p1 the p 1
-	 * @param p2 the p 2
-	 * @return the node
-	 */
-	public Node GenUnion (Node p1, Node p2){
-		Node union = new Node(3, "+", Operations.Union);
-		union.setBranche(0, p1);
-		union.setBranche(1, p2);
-		return union;
-	}
-	
-	
-	/**
-	 * Gen star.
-	 *
-	 * @param p the p
-	 * @return the node
-	 */
-	public Node GenStar (Node p){
-		Node star = new Node(3, "*",Operations.Star);
-		Node Laccol = new Node (1,Type.Terminal,"[");
-		Node Raccol = new Node (1,Type.Terminal,"]");
-		star.setBranche(0, Laccol);
-		star.setBranche(1, p);
-		star.setBranche(2, Raccol);
-		return star;
-	}
-	
-	
-	/**
-	 * Gen un.
-	 *
-	 * @param nom the nom
-	 * @return the node
-	 */
-	//p peut etre un node ou NULL 
-	public Node GenUn (String nom){
-		Node un = new Node(0,Type.Terminal, nom);
-		return un;
-	}
-	
-	
-	
-	/**
-	 * Gen atom.
-	 *
-	 * @param nom the nom
-	 * @param action the action
-	 * @param type the type
-	 * @return the node
-	 */
-	public Node GenAtom ( String nom, int action, Type type){
-		Node atom = new Node(0,type, nom);
-		return atom;
+	public void setRules(ArrayList<Node> rules) {
+		this.rules = rules;
 	}
 
 
 	/**
-	 * Gets the forest.
+	 * Adds the rule.
 	 *
-	 * @return the forest
+	 * @param rule the rule
 	 */
-	public Node[] getForest() {
-		return forest;
+	public void addRule(Node rule){
+		rules.add(rule);
 	}
-
-
-	/**
-	 * Sets the forest.
-	 *
-	 * @param forest the new forest
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public void setForest(Node[] forest) {
-		this.forest = forest;
-	}
-
-
-	/**
-	 * Gets the nb tree.
-	 *
-	 * @return the nb tree
-	 */
-	public int getNbTree() {
-		return nbTree;
-	}
-
-
-	/**
-	 * Sets the nb tree.
-	 *
-	 * @param nbTree the new nb tree
-	 */
-	public void setNbTree(int nbTree) {
-		this.nbTree = nbTree;
+	@Override
+	public String toString() {
+		return "Grammar [rules=" + rules + "]";
 	}
 	
 	/**
@@ -267,44 +82,246 @@ public void GenForet(){
 	 * @param c the c
 	 * @param cnt the cnt
 	 */
+	/*!
+	 * 
+	 * just a dumb function to print a character the number of times we give
+	 */
 	public void charPrinter(char c, int cnt){
-	    int i;
-	    for(i = 0; i < cnt; i++){
-	        System.out.println(c);
+	    for(int i = 0; i < cnt; i++){
+	        System.out.print(c);
 	    }
 	}
 	
+	
+	/**
+	 * printing a node using the dumb function to represent the levels of the tree nodes
+	 * recursive printing.
+	 *
+	 * @param node the node
+	 * @param cnt the cnt
+	 */
+	public void PrintNode(Node node,int cnt){
+		
+		charPrinter('-', cnt*2);/// two '-' representing one level
+		System.out.println(node.toString());		
+		
+		if(node.getLeft()!=null){
+			PrintNode(node.getLeft(),cnt+1);
+		}
+		//System.out.println("\n");
+		if(node.getRight()!=null){
+			
+			PrintNode(node.getRight(), cnt+1);
+		}
+		
+		
+	}
+
 	/**
 	 * Prints the tree.
 	 *
-	 * @param n the n
+	 * @param ruleNum the rule num
 	 */
-	public void printTree(Node n)
-	{	
-		int cnt=1;
-		System.out.println("Printing Tree:");
-		charPrinter('-', cnt*2);
+	///printing the tree that contains the nodes just by calling the function that prints nodes
+	public void PrintTree(int ruleNum){
 		
-		if(!n.equals(null)) {
-			
-			if(n.getOps() == Operations.Conc){
-				System.out.println("Concat");
-			}
-			if(n.getOps() == Operations.Union){
-				System.out.println("Union");
-			}
-			if(n.getOps() == Operations.Star){
-				System.out.println("Star");
-			}
-			if(n.getOps() == Operations.Un){
-				System.out.println("Un");
-			}
-			if(n.getOps() == Operations.Atom){
-				System.out.println("Atom");
-			}
-			
-		}
+		//if(rules.get(ruleNum))
+		PrintNode(rules.get(ruleNum), 1);
 	}
 	
+	
+	/**
+	 * 
+	 * @param n
+	 */
+	public Boolean analyseG0(Node node){
+		
+		if(node instanceof Conc){
+			if(analyseG0(node.getLeft())){
+				return analyseG0(node.getRight());
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		if(node instanceof Union){
+			if(analyseG0(node.getLeft())){
+				return true;
+			}
+			else{
+				return analyseG0(node.getRight());
+			}
+		}
+		
+		if(node instanceof Star){
+			//FIXME check the algo
+			return analyseG0(node.getLeft());
+			
+		}
+		
+		if(node instanceof Un){
+			return analyseG0(node.getLeft());
+		}
+		
+		if(node instanceof Atom){
+			
+			if(((Atom) node).getaType() == AtomType.Terminal){
+				if(((Atom) node).getCode() == code){ //code est rempli par le scan !!!!!?????
+					return true;
+					if(((Atom) node).getAction() != 0){
+						G0Action(((Atom) node).getAction());
+						Scan();
+						}
+					else
+						return false;
+					}
+				}
+			}
+			
+			else if(((Atom) node).getaType() == AtomType.NonTerminal){
+				if(analyseG0(((Atom) node).getCode())){
+					if(((Atom) node).getAction() != 0){
+						G0Action(((Atom) node).getAction());
+						return true;
+					}
+				
+				}
+				else 
+					return false;
+			}
+		}
+		
+		
+
+		
+		
+	
+	
+	private void Scan() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	private void G0Action(int action) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	/**
+	 * 
+	 * @param G0
+	 * @return the grammar G0 filled with the 5 rules
+	 */
+	private Grammar fillInG0(Grammar G0){
+
+				/// add first rule
+				Node rule1= new Conc(
+									new Star(
+										new Conc(
+												new Conc(
+														new Conc(
+																new Atom("0",AtomType.NonTerminal,0,"N"), 
+																new Atom("0", AtomType.Terminal,0,"->")), 
+														new Atom("0", AtomType.NonTerminal,0,"E")), 
+												new Atom("1", AtomType.Terminal,1,","))), 
+									new Atom("0", AtomType.Terminal,0,";"));
+				
+				
+				/**
+				 * new Atom(1, 0, AtomType.NONTERMINAL, "N")
+				 * code, action, atype,chaine
+				 */
+				///second rule
+				Node rule2= new Atom("2",AtomType.Terminal,2,"IDNTER");
+				
+				///third rule
+				Node rule3= new Conc(
+									new Star(
+											new Conc(
+													new Atom("0",AtomType.Terminal,0,"+"),
+													new Atom("3",AtomType.NonTerminal,3,"T"))),
+									new Atom("0",AtomType.NonTerminal,0,"T"));				
+				
+				///fourth rule
+						Node rule4= new Conc(
+											new Star(
+													new Conc(
+															new Atom("0", AtomType.Terminal,0,"."),
+															new Atom("4", AtomType.NonTerminal,4,"F"))), 
+											new Atom("0", AtomType.NonTerminal,0,"F"));
+				
+				
+				///fifth rule
+				Node rule5 = new Union(
+									new Union(
+											new Union(
+													new Union(
+															new Atom("5", AtomType.Terminal, 5,"ELTER"),
+															new Atom("5", AtomType.Terminal, 5,"IDNTER")
+																	),
+															new Conc(
+																	new Atom("0", AtomType.Terminal, 0,"("),
+																	new Conc(
+																			new Atom("0", AtomType.NonTerminal, 0,"E"),
+																			new Atom("0", AtomType.Terminal, 0,")")
+																			)
+																	)
+															),
+											new Conc(
+													new Atom("0", AtomType.Terminal, 0,"["),
+													new Conc(
+															new Atom("0", AtomType.NonTerminal, 0,"E"),
+															new Atom("0", AtomType.Terminal, 0,"]")
+															)
+														)
+													),
+									new Conc(
+											new Atom("0", AtomType.NonTerminal, 0,"(/"),
+											new Conc(
+													new Atom("0", AtomType.NonTerminal, 0,"E"),
+													new Atom("0", AtomType.Terminal, 0,"/)")
+													)
+											)
+								);
+				
+				
+				
+				
+				///adding 5  rules to the grammar
+				G0.addRule(rule1);
+				G0.addRule(rule2);
+				G0.addRule(rule3);
+				G0.addRule(rule4);
+				G0.addRule(rule5);
+		
+		return G0;
+	}
+
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
+	public static void main(String[] args) {
+
+		
+		///the grammar containing all 5 rules
+		   Grammar G0 = new Grammar();
+		   G0.fillInG0(G0);
+				
+
+		System.out.println("Your G0 has : "+G0.rules.size()+" rules!");
+		
+		///printing all 5 rules
+		for(int i=0;i<G0.rules.size();i++){
+			System.out.println("\n****** Printing Rule number "+(i+1)+" :\n ");
+			G0.PrintTree(i);
+		}
+	}
 
 }

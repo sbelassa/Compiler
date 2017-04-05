@@ -1,7 +1,7 @@
 /*
  * 
  */
-package compiler.otherentities;
+package compiler.entities;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -18,8 +18,34 @@ public class Atom extends Node{
 	/** The action. */
 	private int action;
 	
+	/** string */
+	private String value;
 	
 	
+	
+	public Atom(Node left, Node right, String code, AtomType aType, int action, String value) {
+		super(left, right);
+		this.code = code;
+		this.aType = aType;
+		this.action = action;
+		this.value = value;
+	}
+	
+	public Atom(String code, AtomType aType, int action, String value) {
+		this.code = code;
+		this.aType = aType;
+		this.action = action;
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	/**
 	 * Instantiates a new atom.
 	 */
@@ -112,11 +138,9 @@ public class Atom extends Node{
 	
 	
 	
-	/* (non-Javadoc)
-	 * @see compiler.otherentities.Node#toString()
-	 */
+	@Override
 	public String toString() {
-		return "Atom [code=" + code + ", aType=" + aType + ", action=" + action + "]";
+		return "Atom [code=" + code + ", aType=" + aType + ", action=" + action + ", value=" + value + "]";
 	}
 
 	/* (non-Javadoc)
