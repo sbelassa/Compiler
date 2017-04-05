@@ -3,7 +3,6 @@
  */
 package compiler.entities;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Enum AtomType.
  */

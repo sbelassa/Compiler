@@ -32,12 +32,10 @@ public abstract class Node {
 	 * Instantiates a new node.
 	 */
 	public Node() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
-	 * Gets the left.
+	 * 
 	 *
 	 * @return the left
 	 */
@@ -46,7 +44,6 @@ public abstract class Node {
 	}
 	
 	/**
-	 * Sets the left.
 	 *
 	 * @param left the new left
 	 */
@@ -55,7 +52,6 @@ public abstract class Node {
 	}
 	
 	/**
-	 * Gets the right.
 	 *
 	 * @return the right
 	 */
@@ -64,7 +60,6 @@ public abstract class Node {
 	}
 	
 	/**
-	 * Sets the right.
 	 *
 	 * @param right the new right
 	 */
@@ -73,20 +68,15 @@ public abstract class Node {
 	}
 	
 	
-	/* (non-Javadoc)
+	/** 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		return "Node [left=" + left + ", right=" + right + "]";
 	}
 
-	/**
-	 * Prints the node.
-	 *
-	 * @param str the str
-	 * @return the string
-	 */
-	public abstract String printNode(String str);
+
 
 
 }

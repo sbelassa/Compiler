@@ -51,7 +51,6 @@ public class Atom extends Node{
 	 */
 	public Atom() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -143,13 +142,6 @@ public class Atom extends Node{
 		return "Atom [code=" + code + ", aType=" + aType + ", action=" + action + ", value=" + value + "]";
 	}
 
-	/* (non-Javadoc)
-	 * @see compiler.otherentities.Node#printNode(java.lang.String)
-	 */
-	@Override
-	public String printNode(String str) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

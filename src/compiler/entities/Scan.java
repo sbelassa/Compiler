@@ -39,7 +39,6 @@ public class Scan {
 	 * @param rule
 	 */
 	public Scan(ArrayList<String> dicoNT, ArrayList<String> dicoT, ArrayList<String> symboles, String rule) {
-		super();
 		this.dicoNT = dicoNT;
 		this.dicoT = dicoT;
 		this.symboles = symboles;
@@ -47,19 +46,32 @@ public class Scan {
 	}
 
 
-	public void scanRule(String rule){
+	public Atom scanRule(String rule){
 		if (!this.rule.isEmpty()) {
 			char first = rule.charAt(0);
-			if(first == ' ' || first== '\n'){
-				first = rule.charAt(index)
+				if(first == ' ' || first== '\n'){
+					first = rule.charAt(1);
+				}
+				
+				if(first == )
+			
+			
+			
+			
+			/*if(dicoNT.contains(first)){
+				return new Atom(Character.toString(first), AtomType.NonTerminal, 0,Character.toString(first));
 			}
+			else if(dicoT.contains(first)){
+				return new Atom(Character.toString(first), AtomType.Terminal, 0,Character.toString(first));
+			}*/
+			
 
 		}
+		return null;
 	}
 	
 	/****************************************************************/
 	/**
-	 * 
 	 * GETTERS AND SETTERS 
 	 */
 	public ArrayList<String> getDicoNT() {
@@ -101,13 +113,5 @@ public class Scan {
 	public void setRule(String rule) {
 		this.rule = rule;
 	}
-	
-	
-	
-	
-	
-	
-
-	
 	
 }

@@ -13,8 +13,7 @@ public class Grammar {
 	
 	/** The rules. */
 	private ArrayList<Node> rules;
-	
-	
+		
 
 	/**
 	 * Instantiates a new grammar.
@@ -77,14 +76,10 @@ public class Grammar {
 	}
 	
 	/**
-	 * Char printer.
+	 * just a dumb function to print a character the number of times we give
 	 *
 	 * @param c the c
 	 * @param cnt the cnt
-	 */
-	/*!
-	 * 
-	 * just a dumb function to print a character the number of times we give
 	 */
 	public void charPrinter(char c, int cnt){
 	    for(int i = 0; i < cnt; i++){
@@ -119,26 +114,28 @@ public class Grammar {
 
 	/**
 	 * Prints the tree.
+	 * printing the tree that contains the nodes just by calling the function that prints nodes
 	 *
 	 * @param ruleNum the rule num
 	 */
-	///printing the tree that contains the nodes just by calling the function that prints nodes
 	public void PrintTree(int ruleNum){
 		
-		//if(rules.get(ruleNum))
 		PrintNode(rules.get(ruleNum), 1);
 	}
 	
 	
+
 	/**
 	 * 
-	 * @param n
+	 * @param node
+	 * @param sc
+	 * @return
 	 */
-	public Boolean analyseG0(Node node){
+	public Boolean analyseG0(Node node, Scan sc){
 		
 		if(node instanceof Conc){
-			if(analyseG0(node.getLeft())){
-				return analyseG0(node.getRight());
+			if(analyseG0(node.getLeft(),sc)){
+				return analyseG0(node.getRight(),sc);
 			}
 			else
 			{
@@ -147,32 +144,32 @@ public class Grammar {
 		}
 		
 		if(node instanceof Union){
-			if(analyseG0(node.getLeft())){
+			if(analyseG0(node.getLeft(),sc)){
 				return true;
 			}
 			else{
-				return analyseG0(node.getRight());
+				return analyseG0(node.getRight(),sc);
 			}
 		}
 		
 		if(node instanceof Star){
 			//FIXME check the algo
-			return analyseG0(node.getLeft());
+			return analyseG0(node.getLeft(),sc);
 			
 		}
 		
 		if(node instanceof Un){
-			return analyseG0(node.getLeft());
+			return analyseG0(node.getLeft(),sc);
 		}
 		
 		if(node instanceof Atom){
 			
 			if(((Atom) node).getaType() == AtomType.Terminal){
-				if(((Atom) node).getCode() == code){ //code est rempli par le scan !!!!!?????
+				if(((Atom) node).getCode() == sc.scanRule(??){ //code est rempli par le scan !!!!!?????
 					return true;
 					if(((Atom) node).getAction() != 0){
 						G0Action(((Atom) node).getAction());
-						Scan();
+						sc.scanRule(node.getLeft().toString());// to verify
 						}
 					else
 						return false;
@@ -193,18 +190,6 @@ public class Grammar {
 			}
 		}
 		
-		
-
-		
-		
-	
-	
-	private void Scan() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 	private void G0Action(int action) {
 		// TODO Auto-generated method stub
@@ -288,10 +273,7 @@ public class Grammar {
 													)
 											)
 								);
-				
-				
-				
-				
+
 				///adding 5  rules to the grammar
 				G0.addRule(rule1);
 				G0.addRule(rule2);
@@ -303,7 +285,6 @@ public class Grammar {
 	}
 
 	/**
-	 * The main method.
 	 *
 	 * @param args the arguments
 	 */
