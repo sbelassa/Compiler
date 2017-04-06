@@ -10,7 +10,7 @@ package compiler.entities;
 public class Atom extends Node{
 	
 	/** The code. */
-	private int code;
+	private Integer code;
 	
 	/** The a type. */
 	private AtomType aType;
@@ -85,8 +85,15 @@ public class Atom extends Node{
 	 *
 	 * @return the code
 	 */
-	public int getCode() {
+	public Integer getCode() {
 		return code;
+	}
+
+	public Atom(Integer code, AtomType aType, int action, String value) {
+		this.code = code;
+		this.aType = aType;
+		this.action = action;
+		this.value = value;
 	}
 
 	/**
@@ -94,7 +101,7 @@ public class Atom extends Node{
 	 *
 	 * @param code the new code
 	 */
-	public void setCode(int code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
 
@@ -139,7 +146,7 @@ public class Atom extends Node{
 	
 	@Override
 	public String toString() {
-		return "Atom [code=" + code + ", aType=" + aType + ", action=" + action + ", value=" + value + "]";
+		return "Atom ==> code=" + code + ", aType=" + aType + ", action=" + action + ", value=" + value;
 	}
 
 
