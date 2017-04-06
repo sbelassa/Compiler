@@ -3,10 +3,10 @@ package compiler.entities;
 public class Stack {
 
 	
-	final static int SIZE = 20; // assez grand ?
+	final static int SIZE = 40; // assez grand ?
 
 	private int sp ;
-	private Node [] t ;
+	private Node [] t;
 
 	
 	/**

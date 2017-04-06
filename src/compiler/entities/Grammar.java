@@ -70,7 +70,7 @@ public class Grammar {
 	}
 	
 	
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -135,6 +135,7 @@ public class Grammar {
 	 * @return
 	 */
 	public Boolean analyseG0(Node node, Atom scannedAtom){
+		
 		if(node.equals(null))
 			return true;
 		
@@ -216,11 +217,6 @@ public class Grammar {
 														new Atom(3, AtomType.NonTerminal,0,"E")), 
 												new Atom(4, AtomType.Terminal,1,","))), 
 									new Atom(5, AtomType.Terminal,0,";"));
-				
-				/**
-				 * new Atom(1, 0, AtomType.NONTERMINAL, "N")
-				 * code, action, atype,chaine
-				 */
 				///second rule
 				Node rule2= new Atom(6,AtomType.Terminal,2,"IDNTER");
 				
@@ -291,9 +287,9 @@ public class Grammar {
 		Node T2;
 		
 		switch (act){
-			
-			case 1 : T1 = (Atom) pile.pop();
-					 T2 = (Atom) pile.pop();
+		
+			case 1 : T1 = pile.pop();
+					 T2 = pile.pop();
 					 //rules[rules.size()]=T1;
 					 this.rules.add(T2);
 					 break;
@@ -346,7 +342,6 @@ public class Grammar {
 				
 
 		System.out.println("Your G0 has : "+G0.rules.size()+" rules!");
-		
 		///printing all 5 rules
 		for(int i=0;i<G0.rules.size();i++){
 			System.out.println("\n****** Printing Rule number "+(i+1)+" :\n ");
@@ -354,11 +349,18 @@ public class Grammar {
 		}
 		
 		
+		
 		/***************Scan and analyse **********************/
+		/// TESTS
+		/// S=['a']+'b',;
+		/// S='a',;
+		System.out.println("*********** Scan and analyse: ");
 		Scan scan= new Scan();
 		Atom atom=scan.scanThis(scan.getRule(), "");
+		//Atom atom=scan.scanRule1(scan.getRule());
 		while(!scan.getRule().isEmpty()) {
 			Atom a = scan.scanThis(scan.getRule(),"");
+			//Atom a = scan.scanRule1(scan.getRule());
 			System.out.println(a.toString());
 		}
 		boolean isOk = G0.analyseG0(G0.rules.get(0), atom);

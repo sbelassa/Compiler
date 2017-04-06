@@ -12,31 +12,30 @@ public class Scan {
 	private ArrayList<String> dicoNT;
 	private ArrayList<String> dicoT;
 	private ArrayList<Character> dicoTC;
+	private ArrayList<Character> dicoNTC;
 	private ArrayList<String> symboles;
 	private String rule;
 	private Atom scannedAtom;
 
 	/**
-	 * adding a structure for the scan output but then we have exactly 
-	 * what we wanted in Atom (code,action,AtomType,value) 
+	 * adding a structure for the scan output but then we have exactly what we
+	 * wanted in Atom (code,action,AtomType,value)
 	 **/
-
-
 
 	/**
 	 * the main scan function
 	 */
 	public Scan() {
-		dicoNT = new ArrayList<String>(Arrays.asList("S","N","E","T","F","IDNTER"));
-		dicoT = new ArrayList<String>(Arrays.asList("+",".","(",")","[","]","(/","/)","ELTER"));
-		dicoTC= new ArrayList<Character>(Arrays.asList('+','(',')','[',']','.',',',';'));
-		symboles = new ArrayList<String>(Arrays.asList(";","->",",",":="));
+		dicoNT = new ArrayList<String>(Arrays.asList("S", "N", "E", "T", "F", "IDNTER"));
+		dicoT = new ArrayList<String>(Arrays.asList("+", ".", "(", ")", "[", "]", "(/", "/)", "ELTER"));
+		dicoTC = new ArrayList<Character>(Arrays.asList('+', '(', ')', '[', ']', '.', ',', ';'));
+		dicoNTC = new ArrayList<Character>(Arrays.asList('S', 'T', 'E', 'F', 'N'));
+		symboles = new ArrayList<String>(Arrays.asList(";", "->", ",", ":="));
 		System.out.println("Write the rule you want to scan in one line and hit enter: ");
 		Scanner in = new Scanner(System.in);
 		rule = in.nextLine();
 		in.close();
 	}
-
 
 	/**
 	 * 
@@ -52,46 +51,43 @@ public class Scan {
 		this.rule = rule;
 	}
 
-
 	/**
 	 * doesn't work
+	 * 
 	 * @param rule
 	 * @return
 	 */
-	public Atom scanRule1(String rule){
+
+	public Atom scanRule1(String rule) {
 		if (!this.rule.isEmpty()) {
 			char first = rule.charAt(0);
 
-			if(Character.toString(first) == "->"){
-				if(!symboles.contains(first)){
+			if (Character.toString(first) == "->") {
+				if (!symboles.contains(first)) {
 					symboles.add("->");
 				}
 				this.rule = rule.substring(1);
-				return new Atom(2, AtomType.Terminal, 0,Character.toString(first));
-			}
-			else if(dicoNT.contains(first)){
+				return new Atom(2, AtomType.Terminal, 0, Character.toString(first));
+			} else if (first == 'S'/* dicoNT.contains(first) */) {
 				this.rule = rule.substring(1);
-				return new Atom(null, AtomType.NonTerminal, 0,Character.toString(first));
-			}
-			else if(dicoT.contains(first)){
+				return new Atom(null, AtomType.NonTerminal, 0, Character.toString(first));
+			} else if (dicoT.contains(first)) {
 				this.rule = rule.substring(1);
-				return new Atom(null, AtomType.Terminal, 0,Character.toString(first));
-			}
-			
-			else{
-	            if(rule.length() > 0)
-	            	this.rule = rule.substring(1);
-				return new Atom(null, AtomType.Terminal, 0,Character.toString(first));
+				return new Atom(null, AtomType.Terminal, 0, Character.toString(first));
 			}
 
-
+			else {
+				if (rule.length() > 0)
+					this.rule = rule.substring(1);
+				return new Atom(null, AtomType.Terminal, 0, Character.toString(first));
+			}
 		}
 		return null;
 	}
-	
+
 	/****************************************************************/
 	/**
-	 * GETTERS AND SETTERS 
+	 * GETTERS AND SETTERS
 	 */
 	public ArrayList<String> getDicoNT() {
 		return dicoNT;
@@ -124,7 +120,7 @@ public class Scan {
 	public String getRule() {
 		return rule;
 	}
-	
+
 	public Scan(ArrayList<String> dicoNT, ArrayList<String> dicoT, ArrayList<Character> dicoTC,
 			ArrayList<String> symboles, String rule, Atom scannedAtom) {
 		super();
@@ -143,7 +139,7 @@ public class Scan {
 	public void setRule(String rule) {
 		this.rule = rule;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -165,8 +161,7 @@ public class Scan {
 	public void setScannedAtom(Atom scannedAtom) {
 		this.scannedAtom = scannedAtom;
 	}
-	
-	
+
 /********************************SCAN MAIN FUNCTION*******************************************************/
 	
 	/**
@@ -182,11 +177,9 @@ public class Scan {
 			/// get the first character of the rule
 			Character first = rule.charAt(0);
 			
-			if (first == '=') {
-				if (tmp.equals(":")) {
-					tmp = "";
+			if (first == ':') {
+				if (rule.charAt(1)== '=') {
 					this.rule = rule.substring(1);
-					
 						if(!symboles.contains(first))
 							symboles.add(":=");
 						
@@ -194,6 +187,7 @@ public class Scan {
 				} 
 					else {
 						System.out.println("unknown symbol");
+
 					}
 				
 			} else 
@@ -209,24 +203,7 @@ public class Scan {
 					
 					this.rule = rule.substring(1);
 					return new Atom(null,  AtomType.Terminal,0, Character.toString(first));
-				} else
-					
-					if (first == ':') {
-						if (!tmp.isEmpty() && !tmp.equals(":")) {
-							
-							if(!dicoNT.contains(tmp))
-								dicoNT.add(tmp);
-							
-							return new Atom(null, AtomType.NonTerminal,0, tmp);
-						}
-
-				this.rule = rule.substring(1);
-				tmp += first ;
-				
-				return scanThis(this.rule, tmp);
-			}
-			
-			
+				}
 			else if (first == '"') {
 				if (tmp.isEmpty()) {
 				    this.rule = rule.substring(1);
@@ -254,5 +231,4 @@ public class Scan {
 		return null;
 	}
 
-	
 }
