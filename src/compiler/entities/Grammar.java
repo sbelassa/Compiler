@@ -13,7 +13,10 @@ public class Grammar {
 	
 	/** The rules. */
 	private ArrayList<Node> rules;
-		
+	
+	
+	/**Stack to generate the GPL**/
+	private Stack pile;
 
 	/**
 	 * Instantiates a new grammar.
@@ -285,6 +288,59 @@ public class Grammar {
 		return G0;
 	}
 
+	
+	
+	public void g0Action( int act){
+		Atom T1;
+		Atom T2;
+		
+		switch (act){
+			
+			case 1 : T1 = (Atom) pile.pop();
+					 T2 = (Atom) pile.pop();
+					 rules[rules.size()]=T1;
+					 break;
+					 
+			case 2 : pile.push(new Atom(Recherche(DICONT), act, catype));
+					 break;
+					 
+			case 3 : T1=(Atom) pile.pop();
+					 T2=(Atom) pile.pop();
+					 pile.push(new Union(T1,T2));
+					 break;
+			
+			case 4 : T1=(Atom) pile.pop();
+					 T2=(Atom) pile.pop();
+					 pile.push(new Conc(T1,T2));
+					 break;
+				
+			case 5 :
+					 if(caType == Terminal ){
+						 	pile.push(new Atom(Recherche(DICO, act, AtomType.Terminal)));
+					 }
+					 else{
+						 pile.push(new Atom(Recherche(DICONT),act,AtomType.NonTerminal));
+					 }
+					 break;
+					 
+			case 6 : T1=(Atom) pile.pop();
+					 pile.push(new Star(T1));
+					 break;
+					
+			case 7 : T1=pile.pop();
+					 pile.push(new Un(T1));
+					 
+					 
+		}		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 *
 	 * @param args the arguments
