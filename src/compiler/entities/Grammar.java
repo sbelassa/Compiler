@@ -131,14 +131,16 @@ public class Grammar {
 	/**
 	 * 
 	 * @param node
-	 * @param sc
+	 * @param scan
 	 * @return
 	 */
-	public Boolean analyseG0(Node node, Scan sc){
+	public Boolean analyseG0(Node node, Atom scannedAtom){
+		if(node.equals(null))
+			return true;
 		
 		if(node instanceof Conc){
-			if(analyseG0(node.getLeft(),sc)){
-				return analyseG0(node.getRight(),sc);
+			if(analyseG0(node.getLeft(),scannedAtom)){
+				return analyseG0(node.getRight(),scannedAtom);
 			}
 			else
 			{
@@ -147,57 +149,51 @@ public class Grammar {
 		}
 		
 		if(node instanceof Union){
-			if(analyseG0(node.getLeft(),sc)){
+			if(analyseG0(node.getLeft(),scannedAtom)){
 				return true;
 			}
 			else{
-				return analyseG0(node.getRight(),sc);
+				return analyseG0(node.getRight(),scannedAtom);
 			}
 		}
 		
 		if(node instanceof Star){
-			//FIXME check the algo
-			return analyseG0(node.getLeft(),sc);
-			
+			return analyseG0(node.getLeft(),scannedAtom);			
 		}
 		
 		if(node instanceof Un){
-			return analyseG0(node.getLeft(),sc);
+			return analyseG0(node.getLeft(),scannedAtom);
 		}
 		
 		if(node instanceof Atom){
 			
 			if(((Atom) node).getaType() == AtomType.Terminal){
-				if(((Atom) node).getCode() == sc.scanRule(??){ //code est rempli par le scan !!!!!?????
-					return true;
+				if(((Atom) node).getCode() == scannedAtom.getCode()){ //code est rempli par le scan !!!!!?????
 					if(((Atom) node).getAction() != 0){
-						G0Action(((Atom) node).getAction());
-						sc.scanRule(node.getLeft().toString());// to verify
+						g0Action(((Atom) node).getAction(),scannedAtom);
+						//scan.scanRule(node.getLeft().toString());// to verify
+						//call scan
 						}
 					else
 						return false;
 					}
-				}
-			}
-			
-			else if(((Atom) node).getaType() == AtomType.NonTerminal){
-				if(analyseG0(((Atom) node).getCode())){
-					if(((Atom) node).getAction() != 0){
-						G0Action(((Atom) node).getAction());
-						return true;
+				} else if(((Atom) node).getaType() == AtomType.NonTerminal){
+					
+					if(analyseG0(rules.get(((Atom) node).getCode()), scannedAtom))
+					{
+						if(((Atom) node).getAction() != 0){
+							g0Action(((Atom) node).getAction(),scannedAtom);
+							return true;
+						}
+					
 					}
-				
-				}
 				else 
 					return false;
 			}
 		}
-		
-
-	private void G0Action(int action) {
-		
+		return false;
 	}
-
+		
 
 	/**
 	 * 
@@ -290,40 +286,43 @@ public class Grammar {
 
 	
 	
-	public void g0Action( int act){
-		Atom T1;
-		Atom T2;
+	public void g0Action( int act, Node node){
+		Node T1;
+		Node T2;
 		
 		switch (act){
 			
 			case 1 : T1 = (Atom) pile.pop();
 					 T2 = (Atom) pile.pop();
-					 rules[rules.size()]=T1;
+					 //rules[rules.size()]=T1;
+					 this.rules.add(T2);
 					 break;
 					 
-			case 2 : pile.push(new Atom(Recherche(DICONT), act, catype));
+			case 2 : pile.push(node);
+					//pile.push(new Atom(Recherche(DICONT), act, catype));
 					 break;
 					 
-			case 3 : T1=(Atom) pile.pop();
-					 T2=(Atom) pile.pop();
+			case 3 : T1=pile.pop();
+					 T2=pile.pop();
 					 pile.push(new Union(T1,T2));
 					 break;
 			
-			case 4 : T1=(Atom) pile.pop();
-					 T2=(Atom) pile.pop();
+			case 4 : T1=pile.pop();
+					 T2=pile.pop();
 					 pile.push(new Conc(T1,T2));
 					 break;
 				
 			case 5 :
-					 if(caType == Terminal ){
+					/* if(caType == Terminal ){
 						 	pile.push(new Atom(Recherche(DICO, act, AtomType.Terminal)));
 					 }
 					 else{
 						 pile.push(new Atom(Recherche(DICONT),act,AtomType.NonTerminal));
-					 }
+					 }*/
+				 	 pile.push(node);
 					 break;
 					 
-			case 6 : T1=(Atom) pile.pop();
+			case 6 : T1=pile.pop();
 					 pile.push(new Star(T1));
 					 break;
 					
@@ -333,13 +332,6 @@ public class Grammar {
 					 
 		}		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 *
@@ -360,6 +352,18 @@ public class Grammar {
 			System.out.println("\n****** Printing Rule number "+(i+1)+" :\n ");
 			G0.PrintTree(i);
 		}
+		
+		
+		/***************Scan and analyse **********************/
+		Scan scan= new Scan();
+		Atom atom=scan.scanThis(scan.getRule(), "");
+		while(!scan.getRule().isEmpty()) {
+			Atom a = scan.scanThis(scan.getRule(),"");
+			System.out.println(a.toString());
+		}
+		boolean isOk = G0.analyseG0(G0.rules.get(0), atom);
+		System.out.println(isOk);
+		
 	}
 
 }
